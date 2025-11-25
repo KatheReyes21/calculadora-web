@@ -100,18 +100,8 @@
 
     function calcularExpresion() {
         if (pantalla.value === '') return;
-        const expresion = pantalla.value;
-        try {
-            if (/[^0-9+\-*/(). ]/.test(expresion)) {
-                throw new Error("Caracteres no permitidos");
-            }
-            const resultado = eval(expresion);
-            resultadoDiv.textContent = `Resultado: ${resultado}`;
-            resultadoDiv.className = 'exito';
-        } catch (error) {
-            resultadoDiv.textContent = `Error: ${error.message}`;
-            resultadoDiv.className = 'error';
-        }
+        const expr = pantalla.value;
+        enviarCalculo('expresion', '', '', expr);
     }
 
     function evaluarExpresion() {
@@ -183,9 +173,5 @@
 </script>
 ```
 
-</body>
-</html>
-
-    </script>
 </body>
 </html>
