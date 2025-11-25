@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -9,210 +10,182 @@
 <body>
     <div class="container">
         <header>
-            <h1>Calculadora Web </h1>
+            <h1>Calculadora Web</h1>
             <p>Una calculadora web implementada con Python y muy eficaz</p>
         </header>
 
-        <main>
-            <div class="calculadora">
-                <div class="pantalla">
-                    <input type="text" id="pantalla" readonly>
-                    <div id="resultado"></div>
-                </div>
+```
+    <main>
+        <div class="calculadora">
+            <div class="pantalla">
+                <input type="text" id="pantalla" readonly>
+                <div id="resultado"></div>
+            </div>
 
-                <div class="botones">
-                    <div class="fila">
-                        <button onclick="agregarNumero('7')">7</button>
-                        <button onclick="agregarNumero('8')">8</button>
-                        <button onclick="agregarNumero('9')">9</button>
-                        <button onclick="agregarOperador('/')">/</button>
-                        <button onclick="calcularRaiz()">√</button>
-                    </div>
-                    <div class="fila">
-                        <button onclick="agregarNumero('4')">4</button>
-                        <button onclick="agregarNumero('5')">5</button>
-                        <button onclick="agregarNumero('6')">6</button>
-                        <button onclick="agregarOperador('*')">×</button>
-                        <button onclick="calcularPotencia()">x²</button>
-                    </div>
-                    <div class="fila">
-                        <button onclick="agregarNumero('1')">1</button>
-                        <button onclick="agregarNumero('2')">2</button>
-                        <button onclick="agregarNumero('3')">3</button>
-                        <button onclick="agregarOperador('-')">-</button>
-                        <button onclick="calcularPorcentaje()">%</button>
-                    </div>
-                    <div class="fila">
-                        <button onclick="agregarNumero('0')">0</button>
-                        <button onclick="agregarPunto()">.</button>
-                        <button onclick="limpiarPantalla()">C</button>
-                        <button onclick="agregarOperador('+')">+</button>
-                        <button onclick="calcularExpresion()">=</button>
-                    </div>
+            <div class="botones">
+                <div class="fila">
+                    <button onclick="agregarNumero('7')">7</button>
+                    <button onclick="agregarNumero('8')">8</button>
+                    <button onclick="agregarNumero('9')">9</button>
+                    <button onclick="agregarOperador('/')">/</button>
+                    <button onclick="calcularRaiz()">√</button>
                 </div>
-
-                <div class="modo-avanzado">
-                    <h3>Modo Expresión</h3>
-                    <input type="text" id="expresion" placeholder="Ej: 2 + 3 * (4 - 1)">
-                    <button onclick="evaluarExpresion()">Evaluar Expresión</button>
+                <div class="fila">
+                    <button onclick="agregarNumero('4')">4</button>
+                    <button onclick="agregarNumero('5')">5</button>
+                    <button onclick="agregarNumero('6')">6</button>
+                    <button onclick="agregarOperador('*')">×</button>
+                    <button onclick="calcularPotencia()">x²</button>
+                </div>
+                <div class="fila">
+                    <button onclick="agregarNumero('1')">1</button>
+                    <button onclick="agregarNumero('2')">2</button>
+                    <button onclick="agregarNumero('3')">3</button>
+                    <button onclick="agregarOperador('-')">-</button>
+                    <button onclick="calcularPorcentaje()">%</button>
+                </div>
+                <div class="fila">
+                    <button onclick="agregarNumero('0')">0</button>
+                    <button onclick="agregarPunto()">.</button>
+                    <button onclick="limpiarPantalla()">C</button>
+                    <button onclick="agregarOperador('+')">+</button>
+                    <button onclick="calcularExpresion()">=</button>
                 </div>
             </div>
-        </main>
 
-        <footer>
-            <p>Desarrollado con Python estándar - Sin frameworks</p>
-        </footer>
-    </div>
+            <div class="modo-avanzado">
+                <h3>Modo Expresión</h3>
+                <input type="text" id="expresion" placeholder="Ej: 2 + 3 * (4 - 1)">
+                <button onclick="evaluarExpresion()">Evaluar Expresión</button>
+            </div>
+        </div>
+    </main>
 
-    <script>
-        let pantalla = document.getElementById('pantalla');
-        let expresionInput = document.getElementById('expresion');
-        let resultadoDiv = document.getElementById('resultado');
-        let operacionActual = '';
-        let numero1 = '';
-        let numero2 = '';
-        let operador = '';
+    <footer>
+        <p>Desarrollado con Python estándar - Sin frameworks</p>
+    </footer>
+</div>
 
-        function agregarNumero(numero) {
-            pantalla.value += numero;
-        }
+<script>
+    let pantalla = document.getElementById('pantalla');
+    let expresionInput = document.getElementById('expresion');
+    let resultadoDiv = document.getElementById('resultado');
 
-        function agregarPunto() {
-            if (!pantalla.value.includes('.')) {
-                pantalla.value += pantalla.value === '' ? '0.' : '.';
-            }
-        }
+    function agregarNumero(numero) {
+        pantalla.value += numero;
+    }
 
-function agregarOperador(op) {
-    if (pantalla.value !== '') {
-        // Verificar que el último carácter no sea ya un operador
-        const ultimoCaracter = pantalla.value.slice(-1);
-        if (['+', '-', '*', '/'].includes(ultimoCaracter)) {
-            // Reemplazar el último operador
-            pantalla.value = pantalla.value.slice(0, -1) + op;
-        } else {
-            pantalla.value += ' ' + op + ' ';
+    function agregarPunto() {
+        if (!pantalla.value.includes('.')) {
+            pantalla.value += pantalla.value === '' ? '0.' : '.';
         }
     }
-}
 
-        function limpiarPantalla() {
-            pantalla.value = '';
-            resultadoDiv.textContent = '';
-            numero1 = '';
-            numero2 = '';
-            operador = '';
-            expresionInput.value = '';
-        }
-
-function calcularExpresion() {
-    if (pantalla.value === '') return;
-
-    const expresion = pantalla.value;
-    
-    try {
-        // Validar expresión segura
-        if (/[^0-9+\-*/(). ]/.test(expresion)) {
-            throw new Error("Caracteres no permitidos");
-        }
-        
-        // Evaluar la expresión
-        const resultado = eval(expresion);
-        resultadoDiv.textContent = `Resultado: ${resultado}`;
-        resultadoDiv.className = 'exito';
-    } catch (error) {
-        resultadoDiv.textContent = `Error: ${error.message}`;
-        resultadoDiv.className = 'error';
-    }
-}
-
-
-
-        function evaluarExpresion() {
-            const expresion = expresionInput.value.trim();
-            console.log("Evaluando expresión:", expresion);  // Para depuración en consola del navegador
-            
-            if (expresion === '') {
-                resultadoDiv.textContent = 'Error: La expresión no puede estar vacía';
-                resultadoDiv.className = 'error';
-                return;
-            }
-
-            enviarCalculo('expresion', '', '', expresion);
-        }
-
-        function calcularRaiz() {
-            const numero = pantalla.value;
-            if (numero === '') return;
-            
-            enviarCalculo('raiz', numero, '', '');
-        }
-
-        function calcularPotencia() {
-            const base = pantalla.value;
-            if (base === '') return;
-            
-            enviarCalculo('potencia', base, '2', '');
-        }
-
-        function calcularPorcentaje() {
-            if (pantalla.value === '') return;
-            
-            // Para porcentaje, necesitamos dos números
-            // En una implementación real, esto sería más complejo
-            const partes = pantalla.value.split(' ');
-            if (partes.length >= 3) {
-                numero1 = partes[0];
-                operador = partes[1];
-                numero2 = partes[2];
-                
-                enviarCalculo('porcentaje', numero1, numero2, '');
+    function agregarOperador(op) {
+        if (pantalla.value !== '') {
+            const ultimoCaracter = pantalla.value.slice(-1);
+            if (["+", "-", "*", "/"].includes(ultimoCaracter)) {
+                pantalla.value = pantalla.value.slice(0, -1) + op;
             } else {
-                alert('Para calcular porcentaje, ingrese una operación como: 50 / 200');
+                pantalla.value += ' ' + op + ' ';
             }
         }
+    }
 
-        function enviarCalculo(operacion, num1, num2, expr) {
-            const formData = new FormData();
-            formData.append('operacion', operacion);
-            formData.append('numero1', num1);
-            formData.append('numero2', num2);
-            formData.append('expresion', expr);
+    function limpiarPantalla() {
+        pantalla.value = '';
+        resultadoDiv.textContent = '';
+        expresionInput.value = '';
+    }
 
-            fetch('/calcular', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.estado === 'exito') {
-                    resultadoDiv.textContent = `Resultado: ${data.resultado}`;
-                    resultadoDiv.className = 'exito';
-                } else {
-                    resultadoDiv.textContent = `Error: ${data.mensaje}`;
-                    resultadoDiv.className = 'error';
-                }
-            })
-            .catch(error => {
-                resultadoDiv.textContent = `Error de conexión: ${error}`;
+    function calcularExpresion() {
+        if (pantalla.value === '') return;
+        const expresion = pantalla.value;
+        try {
+            if (/[^0-9+\-*/(). ]/.test(expresion)) {
+                throw new Error("Caracteres no permitidos");
+            }
+            const resultado = eval(expresion);
+            resultadoDiv.textContent = `Resultado: ${resultado}`;
+            resultadoDiv.className = 'exito';
+        } catch (error) {
+            resultadoDiv.textContent = `Error: ${error.message}`;
+            resultadoDiv.className = 'error';
+        }
+    }
+
+    function evaluarExpresion() {
+        const expresion = expresionInput.value.trim();
+        if (expresion === '') {
+            resultadoDiv.textContent = 'Error: La expresión no puede estar vacía';
+            resultadoDiv.className = 'error';
+            return;
+        }
+        enviarCalculo('expresion', '', '', expresion);
+    }
+
+    function calcularRaiz() {
+        const numero = pantalla.value;
+        if (numero === '') return;
+        enviarCalculo('raiz', numero, '', '');
+    }
+
+    function calcularPotencia() {
+        const base = pantalla.value;
+        if (base === '') return;
+        enviarCalculo('potencia', base, '2', '');
+    }
+
+    function calcularPorcentaje() {
+        if (pantalla.value === '') return;
+        const partes = pantalla.value.split(' ');
+        if (partes.length >= 3) {
+            enviarCalculo('porcentaje', partes[0], partes[2], '');
+        } else {
+            alert('Para calcular porcentaje, ingrese algo como: 50 / 200');
+        }
+    }
+
+    function enviarCalculo(operacion, num1, num2, expr) {
+        const formData = new FormData();
+        formData.append('operacion', operacion);
+        formData.append('numero1', num1);
+        formData.append('numero2', num2);
+        formData.append('expresion', expr);
+
+        fetch('/calcular', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.estado === 'exito') {
+                resultadoDiv.textContent = `Resultado: ${data.resultado}`;
+                resultadoDiv.className = 'exito';
+            } else {
+                resultadoDiv.textContent = `Error: ${data.mensaje}`;
                 resultadoDiv.className = 'error';
-            });
-        }
-
-        // Manejar entrada desde el teclado
-        document.addEventListener('keydown', function(event) {
-            if (event.key >= '0' && event.key <= '9') {
-                agregarNumero(event.key);
-            } else if (event.key === '.') {
-                agregarPunto();
-            } else if (['+', '-', '*', '/'].includes(event.key)) {
-                agregarOperador(event.key);
-            } else if (event.key === 'Enter') {
-                calcularExpresion();
-            } else if (event.key === 'Escape') {
-                limpiarPantalla();
             }
+        })
+        .catch(error => {
+            resultadoDiv.textContent = `Error de conexión: ${error}`;
+            resultadoDiv.className = 'error';
         });
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key >= '0' && event.key <= '9') agregarNumero(event.key);
+        else if (event.key === '.') agregarPunto();
+        else if (["+", "-", "*", "/"].includes(event.key)) agregarOperador(event.key);
+        else if (event.key === 'Enter') calcularExpresion();
+        else if (event.key === 'Escape') limpiarPantalla();
+    });
+</script>
+```
+
+</body>
+</html>
+
     </script>
 </body>
 </html>
